@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface SearchFilterState {
-  searchTerm: string;
-  year: string;
-  type: string;
-  page: number;
-}
+import { SearchFilterState } from '../types/movie';
 
 const initialState: SearchFilterState = {
   searchTerm: 'Pokemon', // Default value

@@ -32,6 +32,12 @@ export interface MovieListProps {
   rowsPerPage: number;
 }
 
+export interface SearchFilterState {
+  searchTerm: string;
+  year: string;
+  type: string;
+  page: number;
+}
 export interface SearchFilterProps {
     searchTerm: string;
     year: string;
