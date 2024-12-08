@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -8,6 +8,7 @@ import {
 import { fetchMovies } from '../store/movieSlice';
 import { RootState, AppDispatch } from '../store';
 import { MovieListProps } from '../types/movie';
+import defaultImageUrl from '../assets/default-image.png';
 
 const MovieList: React.FC<MovieListProps> = ({ 
   searchTerm, 
@@ -17,6 +18,7 @@ const MovieList: React.FC<MovieListProps> = ({
   
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [showError, setShowError] = useState(false);
   const { movies, loading, error } = useSelector((state: RootState) => state.movies);
   const location = useLocation();
 
@@ -30,11 +32,19 @@ const MovieList: React.FC<MovieListProps> = ({
     searchMovies();
   }, [searchMovies]);
 
+  useEffect(() => {
+    if (error) {
+      // Delay error message display by 1.5 seconds
+      const timer = setTimeout(() => setShowError(true), 1500);
+      return () => clearTimeout(timer); // Cleanup the timer on unmount
+    }
+  }, [error]);
+
   if (loading) return <Typography className="loading-text">Loading...</Typography>;
   if (!searchTerm.trim()) {
     return <Typography className="error-text">Oops! You forgot to type something. What movie are you looking for? 🤔</Typography>;
   }
-  if (error) {
+  if (showError && error) {
     return <Typography className="error-text">No movies found. Your search might be too *avant-garde*. Try a more common search term!</Typography>;
   }
   return (
@@ -55,7 +65,7 @@ const MovieList: React.FC<MovieListProps> = ({
               <TableRow key={movie.imdbID} hover>
                 <TableCell>
                   <img
-                    src={movie.Poster !== 'N/A' ? movie.Poster : '/placeholder.svg'}
+                    src={movie.Poster !== 'N/A' ? movie.Poster : defaultImageUrl}
                     alt={`${movie.Title} poster`}
                     className="movie-poster"
                   />

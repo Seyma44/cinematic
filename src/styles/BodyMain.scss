@@ -1,4 +1,4 @@
-@import 'variables'; 
+@use './variables' as *;
 
 .body-main {
   animation: fadeIn var(--animation-duration) ease-out;
@@ -14,8 +14,9 @@
     .type-select {
       flex: 1;
       min-width: 200px;
-      background-color: var(--bg-color);
+      background-color: var(--bg-color); // Default background color
       border-radius: 8px;
+      transition: background-color 0.3s ease;
 
       input, .MuiSelect-select {
         color: var(--text-color);
@@ -35,6 +36,21 @@
 
       .MuiInputLabel-root {
         color: var(--secondary-text-color);
+      }
+
+      // **Prevent background color change for the input**
+      .MuiOutlinedInput-root {
+        background-color: var(--bg-color) !important; // Prevent background color from changing
+        transition: background-color 0.3s ease !important;
+      }
+
+      .MuiSelect-select {
+        background-color: var(--bg-color); // Default background for select dropdown
+      }
+
+      // Customizing the dropdown when it's open
+      .MuiMenuItem-root {
+        background-color: var(--bg-dropdown-color); // Change dropdown background color
       }
     }
   }

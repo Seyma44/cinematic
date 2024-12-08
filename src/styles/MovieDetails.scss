@@ -1,4 +1,4 @@
-@import 'variables'; 
+@use './variables' as *;
 
 .movie-details {
   animation: fadeIn var(--animation-duration) ease-out;
@@ -41,7 +41,7 @@
   }
 
   .genre-chip {
-    margin-right: 0.5rem;
+    margin-left:0.5rem;
     margin-bottom: 0.5rem;
     background-color: var(--mui-primary-color);
     color: var(--text-color);

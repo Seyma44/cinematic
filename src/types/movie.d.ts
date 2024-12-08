@@ -1,5 +1,3 @@
-// src/types/movie.d.ts
-
 export interface Movie {
     type: string;
     Title: string;

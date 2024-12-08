@@ -33,9 +33,10 @@ const MovieDetails: React.FC = () => {
   const getImageSource = (imageUrl: string | undefined) =>
     imageUrl && imageUrl !== 'N/A' ? imageUrl : defaultImageUrl;
 
-  if (loading) return <p className="loading-text">Loading...</p>;
-  if (error) return <p className="error-text">Error: {error}</p>;
-  if (!selectedMovie) return <p className="no-movie-text">No movie selected</p>;
+  if (loading) return <div className="loading-text">Loading...</div>;
+  if (error) return <div className="error-text">Error: {error}</div>;
+  if (!selectedMovie) return <div className="no-movie-text">No movie selected</div>;
+
 
   return (
     <div className="movie-details">
@@ -59,11 +60,11 @@ const MovieDetails: React.FC = () => {
           <Typography className="movie-info">
             Duration: {getDefaultValue(selectedMovie.Runtime)}
           </Typography>
-          <Typography className="movie-info">
+          <Typography component="div" className="movie-info">
             Genre:
             {selectedMovie.Genre !== 'N/A'
               ? selectedMovie.Genre.split(', ').map((genre, index) => (
-                  <Chip key={index} label={genre} className="genre-chip" />
+                  <Chip key={index} label={genre} className="genre-chip"/>
                 ))
               : 'Not available'}
           </Typography>
