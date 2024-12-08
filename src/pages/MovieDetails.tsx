@@ -16,19 +16,16 @@ const MovieDetails: React.FC = () => {
 
   const { selectedMovie, loading, error } = useSelector((state: RootState) => state.movies);
 
-  // Fetch movie details when the component mounts
   useEffect(() => {
     if (id) {
       dispatch(fetchMovieDetails(id));
     }
   }, [dispatch, id]);
 
-  // Handle the back button
   const handleBack = () => {
-    const previousLocation = location.state?.from || '/';  // Fallback to '/' if state is undefined
-    navigate(previousLocation);  // Navigate back to the previous page (with query params)
+    const previousLocation = location.state?.from || '/';
+    navigate(previousLocation);
   };
-
 
   const getDefaultValue = (value: string | undefined) =>
     value && value !== 'N/A' ? value : 'Not available';
@@ -39,7 +36,6 @@ const MovieDetails: React.FC = () => {
   if (loading) return <p className="loading-text">Loading...</p>;
   if (error) return <p className="error-text">Error: {error}</p>;
   if (!selectedMovie) return <p className="no-movie-text">No movie selected</p>;
-  
 
   return (
     <div className="movie-details">
@@ -82,3 +78,4 @@ const MovieDetails: React.FC = () => {
 };
 
 export default MovieDetails;
+

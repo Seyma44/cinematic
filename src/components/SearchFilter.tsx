@@ -1,14 +1,6 @@
 import React from 'react';
-import { TextField, Select, MenuItem, SelectChangeEvent } from '@mui/material';
-
-interface SearchFilterProps {
-  searchTerm: string;
-  year: string;
-  type: string;
-  onSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onYearChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onTypeChange: (event: SelectChangeEvent<string>) => void;
-}
+import { TextField, Select, MenuItem } from '@mui/material';
+import { SearchFilterProps } from '../types/movie';
 
 const SearchFilter: React.FC<SearchFilterProps> = ({
   searchTerm,
@@ -37,7 +29,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         inputProps={{ min: 1888, max: new Date().getFullYear() }}
       />
       <Select value={type || ''} onChange={onTypeChange} variant="outlined" className="type-select">
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="all">All</MenuItem>
         <MenuItem value="movie">Movies</MenuItem>
         <MenuItem value="series">TV Series</MenuItem>
       </Select>
