@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { SelectChangeEvent } from '@mui/material';
@@ -8,10 +9,9 @@ import { TablePagination } from '@mui/material';
 import '../styles/BodyMain.scss';
 import { RootState, AppDispatch } from '../store';
 import { fetchMovies } from '../store/movieSlice';
-import debounce from 'lodash/debounce';
 
 const HomePage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('Pokemon'); // Default to 'Pokemon'
+  const [searchTerm, setSearchTerm] = useState('');
   const [year, setYear] = useState('');
   const [type, setType] = useState('');
   const [page, setPage] = useState(1);
@@ -21,84 +21,63 @@ const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { totalResults, loading } = useSelector((state: RootState) => state.movies);
-  // Function to update the URL query params based on state
+
   const updateUrlParams = useCallback(() => {
     const queryParams = new URLSearchParams();
-    if (searchTerm.trim()) queryParams.set('q', searchTerm);  // Only include if searchTerm is not empty
+    if (searchTerm.trim()) queryParams.set('q', searchTerm);
     if (year) queryParams.set('year', year);
     if (type) queryParams.set('type', type);
     queryParams.set('page', page.toString());
-
+   
     navigate(`/?${queryParams.toString()}`, { replace: true });
   }, [searchTerm, year, type, page, navigate]);
 
-  // Debounced search function
-  const debouncedSearchRef = useRef(
-    debounce((term: string, year: string, type: string, page: number) => {
-      if (term.trim()) {
-        dispatch(fetchMovies({ searchTerm: term, year, type, page }));
-      } else {
-        dispatch(fetchMovies({ searchTerm: '', year, type, page })); // Clear movies if searchTerm is empty
-      }
-    }, 100)
-  );
-
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const newSearchTerm = searchParams.get('q') || searchTerm  
+    const newSearchTerm = searchParams.get('q') || 'Pokemon';
     const newYear = searchParams.get('year') || '';
     const newType = searchParams.get('type') || '';
     const newPage = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
     const newRowsPerPage = parseInt(searchParams.get('rowsPerPage') || '10', 10);
 
-    setSearchTerm(newSearchTerm); 
+    setSearchTerm(newSearchTerm);
     setYear(newYear);
     setType(newType);
     setPage(newPage);
     setRowsPerPage(newRowsPerPage);
 
     if (newSearchTerm.trim()) {
-      debouncedSearchRef.current(newSearchTerm, newYear, newType, newPage);
+      dispatch(fetchMovies({ searchTerm: newSearchTerm, year: newYear, type: newType, page: newPage }));
     }
-  }, [location.search]);
+  }, [location.search, dispatch]);
 
   useEffect(() => {
-    updateUrlParams();  // Update the URL whenever searchTerm, year, type, or page changes
-  }, [searchTerm, year, type, page, updateUrlParams]);
+    updateUrlParams();
+  }, [searchTerm, year, type, page, rowsPerPage, updateUrlParams]);
 
-  // Event handlers for user interactions
   const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newYear = event.target.value;
-    setYear(newYear);
+    setYear(event.target.value);
     setPage(1);
-    debouncedSearchRef.current(searchTerm, newYear, type, 1);
   };
 
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
-    const newType = event.target.value;
-    setType(newType);
+    setType(event.target.value);
     setPage(1);
-    debouncedSearchRef.current(searchTerm, year, newType, 1);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = event.target.value;
-    setSearchTerm(newSearchTerm); // Update the search term with the current input value
+    setSearchTerm(event.target.value);
     setPage(1);
-    debouncedSearchRef.current(newSearchTerm, year, type, 1);
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
-    const nextPage = newPage + 1;
-    setPage(nextPage);
-    debouncedSearchRef.current(searchTerm, year, type, nextPage);
+    setPage(newPage + 1);
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
     setRowsPerPage(newRowsPerPage);
     setPage(1);
-    debouncedSearchRef.current(searchTerm, year, type, 1);
   };
 
   return (
@@ -133,3 +112,4 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+

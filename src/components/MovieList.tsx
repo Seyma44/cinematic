@@ -31,8 +31,12 @@ const MovieList: React.FC<MovieListProps> = ({
   }, [searchMovies]);
 
   if (loading) return <Typography className="loading-text">Loading...</Typography>;
-  if (error) return <Typography className="error-text">Error: {error}</Typography>;
-
+  if (!searchTerm.trim()) {
+    return <Typography className="error-text">Oops! You forgot to type something. What movie are you looking for? 🤔</Typography>;
+  }
+  if (error) {
+    return <Typography className="error-text">No movies found. Your search might be too *avant-garde*. Try a more common search term!</Typography>;
+  }
   return (
     <div className="body-main">
       <TableContainer component={Paper} className="movie-table">

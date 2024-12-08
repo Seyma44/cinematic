@@ -1,68 +1,55 @@
+@import 'variables'; 
+
 .movie-details {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn var(--animation-duration) ease-out;
   padding: 2rem;
-  
+
   .back-button {
     margin-bottom: 1rem;
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn var(--animation-duration) ease-out;
   }
 
   .details-card {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--card-bg-color);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
-  
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
 
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-  }
 
-  .movie-poster {
-    object-fit: cover;
-    max-height: 500px;
-    width: 100%;
-  
     @media (min-width: 768px) {
-      max-width: 40%;
+      flex-direction: row;
     }
   }
 
-  .details-content {
-    padding: 2rem;
-    flex-grow: 1;
-  }
-
   .movie-title {
-    color: #ffffff;
+    color: var(--text-color);
     font-weight: 600;
     margin-bottom: 1rem;
-    animation: fadeInText 1s ease-out;
+    animation: fadeInText var(--animation-duration) ease-out;
   }
 
   .movie-info {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--secondary-text-color);
     margin-bottom: 0.5rem;
-    animation: fadeInText 1s ease-out;
+    animation: fadeInText var(--animation-duration) ease-out;
   }
 
   .genre-chip {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-    background-color: #ff4081;
-    color: #ffffff;
+    background-color: var(--mui-primary-color);
+    color: var(--text-color);
     animation: fadeInText 1.2s ease-out;
   }
 
   .movie-plot {
-    color: #ffffff;
+    color: var(--text-color);
     margin-top: 1rem;
     line-height: 1.6;
     animation: fadeInText 1.5s ease-out;
@@ -72,31 +59,13 @@
   .error-text,
   .no-movie-text {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: var(--font-size);
     margin-top: 2rem;
-    color: #ffffff;
+    color: var(--text-color);
     animation: fadeInText 1.2s ease-out;
   }
 
   .error-text {
-    color: #ff4081;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInText {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+    color: var(--mui-primary-color);
   }
 }

@@ -27,14 +27,14 @@ export const fetchMovies = createAsyncThunk(
 
       const response = await axios.get(`${API_URL}?apikey=${API_KEY}&s=${searchTerm}${yearParam}${typeParam}&page=${page}`);
 
-      if (response.data.Response === "False") {
-        return rejectWithValue(response.data.Error);
+      if (!response.data.Search || response.data.Search.length === 0) {
+        return rejectWithValue('No movies found. Did you forget to invent a search term?');
       }
 
       const totalResults = parseInt(response.data.totalResults, 10) || 0;
 
       if (!response.data.Search || response.data.Search.length === 0) {
-        return rejectWithValue('No movies found for your query');
+        return rejectWithValue('No movies found. Your search might be too *avant-garde*. Try a more common search term!');
       }
 
       return {

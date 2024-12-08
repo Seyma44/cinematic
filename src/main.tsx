@@ -4,9 +4,16 @@ import { Provider } from 'react-redux';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { store } from './store';
 import App from './App';
-import './index.scss';
 
-const theme = createTheme();
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ff4081', // Your custom primary color
+    },
+  },
+});
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
