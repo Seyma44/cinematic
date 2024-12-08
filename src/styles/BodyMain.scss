@@ -1,0 +1,118 @@
+.body-main{
+    animation: fadeIn 0.5s ease-out;
+  
+    .search-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+  
+      .search-input,
+      .year-input,
+      .type-select {
+        flex: 1;
+        min-width: 200px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+  
+        input, .MuiSelect-select {
+          color: #ffffff;
+        }
+  
+        .MuiOutlinedInput-notchedOutline {
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+  
+        &:hover .MuiOutlinedInput-notchedOutline {
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+  
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          border-color: #ff4081;
+        }
+  
+        .MuiInputLabel-root {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+  
+    .movie-table {
+      margin-top: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+  
+      .MuiTableCell-root {
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+  
+      .MuiTableHead-root {
+        .MuiTableCell-root {
+          background-color: rgba(0, 0, 0, 0.2);
+          font-weight: bold;
+        }
+      }
+  
+      .MuiTableBody-root {
+        .MuiTableRow-root {
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+    }
+  
+    .movie-poster {
+      width: 50px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  
+    .movie-title {
+      color: #ff4081;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #f50057;
+      }
+    }
+  
+    .loading-text,
+    .error-text {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      color: #ffffff;
+    }
+  
+    .error-text {
+      color: #ff4081;
+    }
+  
+    .MuiTablePagination-root {
+      color: #ffffff;
+  
+      .MuiTablePagination-selectIcon,
+      .MuiTablePagination-actions {
+        color: #ffffff;
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  

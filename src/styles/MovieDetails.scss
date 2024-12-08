@@ -1,0 +1,102 @@
+.movie-details {
+  animation: fadeIn 0.5s ease-out;
+  padding: 2rem;
+  
+  .back-button {
+    margin-bottom: 1rem;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .details-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .movie-poster {
+    object-fit: cover;
+    max-height: 500px;
+    width: 100%;
+  
+    @media (min-width: 768px) {
+      max-width: 40%;
+    }
+  }
+
+  .details-content {
+    padding: 2rem;
+    flex-grow: 1;
+  }
+
+  .movie-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    animation: fadeInText 1s ease-out;
+  }
+
+  .movie-info {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+    animation: fadeInText 1s ease-out;
+  }
+
+  .genre-chip {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #ff4081;
+    color: #ffffff;
+    animation: fadeInText 1.2s ease-out;
+  }
+
+  .movie-plot {
+    color: #ffffff;
+    margin-top: 1rem;
+    line-height: 1.6;
+    animation: fadeInText 1.5s ease-out;
+  }
+
+  .loading-text,
+  .error-text,
+  .no-movie-text {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    color: #ffffff;
+    animation: fadeInText 1.2s ease-out;
+  }
+
+  .error-text {
+    color: #ff4081;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInText {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
