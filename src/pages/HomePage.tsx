@@ -86,10 +86,10 @@ const HomePage: React.FC = () => {
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = event.target.value; // Don't trim here
-    dispatch(setSearchTerm(newSearchTerm)); // Update the search term with the input value
-    dispatch(setPage(1)); // Reset to the first page when the search term changes
-    debouncedSearchRef.current(newSearchTerm, year, type, 1); // Call debounced function
+    const newSearchTerm = event.target.value; 
+    dispatch(setSearchTerm(newSearchTerm)); 
+    dispatch(setPage(1));
+    debouncedSearchRef.current(newSearchTerm, year, type, 1); 
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
